@@ -24,6 +24,8 @@ module SCSSLint
       @comment_processor = ControlCommentProcessor.new(self)
       visit(engine.tree)
       @lints = @comment_processor.filter_lints(@lints)
+      File.open(engine.filename, 'w') { |f| f.write engine.lines.join('') }
+      @lints
     end
 
     # Return the human-friendly name of this linter as specified in the

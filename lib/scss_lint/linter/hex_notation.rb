@@ -22,6 +22,8 @@ module SCSSLint
 
     def check_hex(hex, node)
       return if expected(hex) == hex
+      location = extract_location(node)
+      engine.lines[location.line-1].gsub!(hex, expected(hex))
 
       add_lint(node, "Color `#{hex}` should be written as `#{expected(hex)}`")
     end
